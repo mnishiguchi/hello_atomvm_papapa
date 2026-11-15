@@ -6,7 +6,5 @@
 *.pyc
 __pycache__/
 /preview/
-/priv/original/*
-!/priv/original/.gitkeep
 .DS_Store
 /tmp/
