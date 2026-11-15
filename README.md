@@ -20,13 +20,15 @@ https://github.com/user-attachments/assets/21771486-e17e-401e-a53b-dcae369f2555
 
 ## PC だけで試聴する
 
-実機を用意する前でも音源を生成できます。Python 3.10 以降、C コンパイラ、make と、`.tool-versions` の Erlang / Elixir を使います。
+実機を用意する前でも音源を生成できます。Python 3.10 以降、C コンパイラ、make と、`.tool-versions` の Erlang / Elixir / just を使います。
 
 ```sh
 mise install
-mise exec -- make check
-mise exec -- make preview
+just check
+just preview
 ```
+
+`just` が見つからない場合は `mise exec -- just check` のように実行できます。既存の `make check` / `make preview` も使えます。
 
 `preview/demo_papageno.wav` を PC の音楽プレーヤーで開いてください。
 

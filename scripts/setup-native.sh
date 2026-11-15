@@ -2,7 +2,7 @@
 set -euo pipefail
 
 repo_dir=$(cd "$(dirname "$0")/.." && pwd)
-atomvm_root=${ATOMVM_REPO_PATH:-"$repo_dir/../AtomVM"}
+atomvm_root=${ATOMVM_REPO_PATH:-"$repo_dir/../AtomVM-papapa"}
 esp32_dir="$atomvm_root/src/platforms/esp32"
 target="$esp32_dir/components/hello_atomvm_papapa"
 
@@ -24,4 +24,4 @@ else
   ln -s "$repo_dir" "$target"
 fi
 printf 'Native component: %s -> %s\n' "$target" "$repo_dir"
-echo "Next: follow docs/getting-started.md to build with the papapa defaults and Elixir boot library."
+echo "次の手順: docs/firmware-build.md を参照してください。"

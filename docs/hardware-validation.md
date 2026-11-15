@@ -37,3 +37,9 @@ https://github.com/user-attachments/assets/21771486-e17e-401e-a53b-dcae369f2555
 | 電源配線 | XIAO の **3V3 → アンプ pin 6、GND → pin 7**。再生完了ログが正常でも、誤配線が残っている間は無音だった |
 
 PWM 周波数はドライバ報告値で約 156 kHz。波形、出力電力、歪み、周波数特性、長時間再生は未評価です。
+
+## just コマンドの確認
+
+同日、XIAO ESP32-C5（MAC 末尾 `CF:09:04`）で `just build-firmware`、`just flash-firmware`、`just flash-app`、`just monitor` を検証しました。新しいビルドは `factory` 領域に約 32% の空きがあり、Elixir 用 boot を含む書き込みと照合に成功しました。
+
+`smoke` と `demo_papageno` を書き込み、ユーザーが音を確認。Papageno の完了ログは `skipped_samples=0` でした。ホストでは `just check` のテスト 14 件（音源 6、コマンド 5、Elixir 3）、整形、`just preview` の WAV 生成も確認しました。

@@ -6,6 +6,7 @@
 | --- | --- |
 | 部品、ピンの位置、接続先 | [配線と部品](wiring.md) |
 | PC での試聴、ビルド、書き込み、曲の変更、無音の切り分け | [最初の音を出す](getting-started.md) |
+| AtomVM checkout、ESP-IDF、NIF、Elixir boot の準備 | [ファームウェアの準備](firmware-build.md) |
 | PCM と PWM の違い、各部品の役割、Elixir と C の分担 | [音声再生の仕組み](audio-design.md) |
 | どこまで実機で確認したか | [動作確認のまとめ](hardware-validation.md) |
 | 今後試せること | [ロードマップ](roadmap.md) |

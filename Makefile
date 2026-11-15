@@ -4,6 +4,7 @@ check: test format-check
 
 test:
 	python3 scripts/test_assets.py
+	python3 scripts/test_commands.py
 	elixir scripts/test_host.exs
 
 format-check:
