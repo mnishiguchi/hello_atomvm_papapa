@@ -4,7 +4,15 @@ XIAO ESP32-C5 と [AtomVM](https://github.com/atomvm/AtomVM) で、スピーカ�
 
 起動すると約 10 秒の練習フレーズを 1 回歌い、その後は待機します。RESET で同じフレーズを再生します。音源はこの実験用に新しく合成したものです。
 
+## 着想のきっかけ：友人のデモ
+
+次の動画は、IoT に詳しい友人によるデモです。これを見て自分でもマイコンから音を出してみたいと思い、このリポジトリで AtomVM を使った「パパパ」と歌う小さな実験を始めました。
+
+https://github.com/user-attachments/assets/4ede73e9-82b0-4ec1-a785-5fb46208fc44
+
 ## 動作デモ
+
+次の動画は、このリポジトリの実験です。XIAO ESP32-C5 と AtomVM で、スピーカーから練習フレーズを再生しています。
 
 https://github.com/user-attachments/assets/21771486-e17e-401e-a53b-dcae369f2555
 
