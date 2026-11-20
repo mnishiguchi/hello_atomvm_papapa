@@ -2,7 +2,7 @@
 
 **2026-11-15、実機のスピーカーから「パパパ」が聴こえ、RESET 後も同じフレーズを再生できることを確認しました。** 既定の `demo_papageno` は約 10 秒の練習フレーズを 1 回歌い、その後は待機します。
 
-[実機写真](assets/breadboard.jpg) / [再現手順](getting-started.md)
+[実機写真](assets/breadboard1.jpg) / [再現手順](getting-started.md)
 
 https://github.com/user-attachments/assets/21771486-e17e-401e-a53b-dcae369f2555
 
@@ -54,3 +54,5 @@ PWM 周波数はドライバ報告値で約 156 kHz。波形、出力電力、�
 | Papagena（女声） | `CC:06:48` | 33.22 秒 | `skipped_samples=0` |
 
 両方の起動ログで GPIO7 と 16 kHz を確認しました。ユーザーが2台を同時に通電して試聴し、両方の歌声が聞こえ、掛け合いのタイミングも合うことを確認しました。
+
+[2台で再生したときの動画（約23秒）](assets/papapa-audio-test1.mp4)

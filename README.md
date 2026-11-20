@@ -16,6 +16,10 @@ https://github.com/user-attachments/assets/4ede73e9-82b0-4ec1-a785-5fb46208fc44
 
 https://github.com/user-attachments/assets/21771486-e17e-401e-a53b-dcae369f2555
 
+提供音源を使い、2台の XIAO ESP32-C5 で Papageno と Papagena の掛け合いも再生しました。
+
+https://github.com/user-attachments/assets/ce74ac3b-5795-4eff-bceb-6c0385cf99c7
+
 [動作確認済みの構成](docs/hardware-validation.md)
 
 ## はじめる
