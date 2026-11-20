@@ -64,22 +64,33 @@ C や PCM を変えたらファームウェアとアプリを両方更新しま�
 
 ## 提供音源で2台のデュエットを再生する
 
-`tmp/source-audio/rmenu_papapa_audio_tracks.zip` の歌声を、役ごとに標準の `factory` 領域へ収めます。プレビュー WAV は元の unsigned 8-bit モノラル PCM と同じサンプルを含みます。取り込み時は 16 kHz と曲中の休止を保ち、振幅には既存の WAV 取り込みゲイン（0.22）を適用します。
+使用した音源は `assets/audio/` にあります。
+
+| 音源 | ファイル | 形式 | サンプルレート | ビット深度 | チャンネル |
+| --- | --- | --- | --- | --- | --- |
+| 生成した練習用フレーズ | `demo_papageno.pcm`、`demo_papagena.pcm`、`demo_duet.pcm` | Raw PCM | 8 kHz | unsigned 8-bit | mono |
+| Papageno（男声） | `song_male.pcm` | Raw PCM | 16 kHz | unsigned 8-bit | mono |
+| Papagena（女声） | `song_female.pcm` | Raw PCM | 16 kHz | unsigned 8-bit | mono |
+| 参考用の二重唱 | `papapa_duet.wav` | WAV | 48 kHz | signed 16-bit | stereo |
+
+個別の歌声は提供された `rmenu_papapa_audio_tracks.zip`、参考用の二重唱は提供された `papa-link-source-audio.tar.gz` 由来です。練習用フレーズは `scripts/build_assets.py` で生成できます。
+
+2台構成では、男声と女声を役ごとに標準の `factory` 領域へ収めます。FFmpeg で Raw PCM に WAV ヘッダを付けてから取り込みます。取り込み時は 16 kHz と曲中の休止を保ち、振幅には既存の WAV 取り込みゲイン（0.22）を適用します。
 
 `/dev/serial/by-id/` で2台の USB 識別番号を確認し、それぞれのパスを `papageno_port` と `papagena_port` に設定します。専用の作業コピーで、リポジトリのルートから次の順に実行します。
 
 ```sh
 set -eu
-archive=tmp/source-audio/rmenu_papapa_audio_tracks.zip
-unzip -p "$archive" song_male_preview.wav > tmp/papageno.wav
-unzip -p "$archive" song_female_preview.wav > tmp/papagena.wav
+audio_tmp=$(mktemp -d)
+ffmpeg -f u8 -ar 16000 -ac 1 -i assets/audio/song_male.pcm -c:a pcm_u8 "$audio_tmp/papageno.wav"
+ffmpeg -f u8 -ar 16000 -ac 1 -i assets/audio/song_female.pcm -c:a pcm_u8 "$audio_tmp/papagena.wav"
 
-python3 scripts/build_assets.py --rate 16000 --no-demo --papageno-wav tmp/papageno.wav
+python3 scripts/build_assets.py --rate 16000 --no-demo --papageno-wav "$audio_tmp/papageno.wav"
 just build-firmware
 just flash-firmware "$papageno_port"
 PAPAPA_REPEAT=false just flash-app "$papageno_port" papageno
 
-python3 scripts/build_assets.py --rate 16000 --no-demo --papagena-wav tmp/papagena.wav
+python3 scripts/build_assets.py --rate 16000 --no-demo --papagena-wav "$audio_tmp/papagena.wav"
 just build-firmware
 just flash-firmware "$papagena_port"
 PAPAPA_REPEAT=false just flash-app "$papagena_port" papagena
