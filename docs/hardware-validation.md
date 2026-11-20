@@ -43,3 +43,14 @@ PWM 周波数はドライバ報告値で約 156 kHz。波形、出力電力、�
 同日、XIAO ESP32-C5（MAC 末尾 `CF:09:04`）で `just build-firmware`、`just flash-firmware`、`just flash-app`、`just monitor` を検証しました。新しいビルドは `factory` 領域に約 32% の空きがあり、Elixir 用 boot を含む書き込みと照合に成功しました。
 
 `smoke` と `demo_papageno` を書き込み、ユーザーが音を確認。Papageno の完了ログは `skipped_samples=0` でした。ホストでは `just check` のテスト 14 件（音源 6、コマンド 5、Elixir 3）、整形、`just preview` の WAV 生成も確認しました。
+
+## 提供音源での2台再生
+
+[提供音源の取り込み手順](firmware-build.md#提供音源で2台のデュエットを再生する) に沿って、役ごとのファームウェアとアプリを作成しました。2026-11-20 に2台へ書き込み、ハッシュ照合後、USB 経由で再起動して確認しました。
+
+| パート | USB 識別番号の末尾 | 音源の長さ | 完了ログ |
+| --- | --- | ---: | --- |
+| Papageno（男声） | `CF:09:04` | 32.17 秒 | `skipped_samples=0` |
+| Papagena（女声） | `CC:06:48` | 33.22 秒 | `skipped_samples=0` |
+
+両方の起動ログで GPIO7 と 16 kHz を確認しました。ユーザーが2台を同時に通電して試聴し、両方の歌声が聞こえ、掛け合いのタイミングも合うことを確認しました。

@@ -62,6 +62,31 @@ just flash-app /dev/ttyACM0 smoke
 
 C や PCM を変えたらファームウェアとアプリを両方更新します。Elixir コードや曲の選択だけなら `flash-app` で更新できます。
 
+## 提供音源で2台のデュエットを再生する
+
+`tmp/source-audio/rmenu_papapa_audio_tracks.zip` の歌声を、役ごとに標準の `factory` 領域へ収めます。プレビュー WAV は元の unsigned 8-bit モノラル PCM と同じサンプルを含みます。取り込み時は 16 kHz と曲中の休止を保ち、振幅には既存の WAV 取り込みゲイン（0.22）を適用します。
+
+`/dev/serial/by-id/` で2台の USB 識別番号を確認し、それぞれのパスを `papageno_port` と `papagena_port` に設定します。専用の作業コピーで、リポジトリのルートから次の順に実行します。
+
+```sh
+set -eu
+archive=tmp/source-audio/rmenu_papapa_audio_tracks.zip
+unzip -p "$archive" song_male_preview.wav > tmp/papageno.wav
+unzip -p "$archive" song_female_preview.wav > tmp/papagena.wav
+
+python3 scripts/build_assets.py --rate 16000 --no-demo --papageno-wav tmp/papageno.wav
+just build-firmware
+just flash-firmware "$papageno_port"
+PAPAPA_REPEAT=false just flash-app "$papageno_port" papageno
+
+python3 scripts/build_assets.py --rate 16000 --no-demo --papagena-wav tmp/papagena.wav
+just build-firmware
+just flash-firmware "$papagena_port"
+PAPAPA_REPEAT=false just flash-app "$papagena_port" papagena
+```
+
+各基板は電源投入時に担当パートを1回再生します。2台を同時に通電すると、元の音源の時間軸で歌い始めます。最初の発声まで、Papageno は約12秒、Papagena は約14秒の休止があります。
+
 ## スクリプトが行う処理
 
 実行の入口は [justfile](../justfile)、処理の本体は [firmware.sh](../scripts/firmware.sh) と [flash-app.sh](../scripts/flash-app.sh) です。ファームウェアのビルドは次の順で行います。
